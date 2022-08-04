@@ -13,7 +13,7 @@ tags=""
 token=""
 url="http://localhost:9000"
 
-portfolioKey="Forked_Projects"
+#portfolioKey="Forked_Projects"
 
 usage() {
    echo "Usage: $0 -g [<git repo>] [-s <scan command>] [-t <tag list>]
@@ -109,16 +109,11 @@ do
    echo "REPLAY-THE-PAST: Running: ${scan} -Dsonar.host.url=${url} -Dsonar.login=${token} -Dsonar.projectDate=${d} -Dsonar.projectVersion=1.${version}.${tag}"
    ${scan} -Dsonar.host.url=${url} -Dsonar.login=${token} -Dsonar.projectDate=${d} -Dsonar.projectVersion=1.${version}.${tag}
    echo "REPLAY-THE-PAST: Done for tag ${tag}, handling next"
-
-   curl -s -u "${token}:" -X POST "${url}/api/views/refresh?key=${portfolioKey}"
-	   
-   [ $? -ne 0 ] && exit $EXIT_SCAN_ERROR
    
-   version=$((${version}+1))
+   [ $? -ne 0 ] && exit $EXIT_SCAN_ERROR
 
-   #if [ "$tag" = "3.5.0-beta2" ]; then
-   #    echo DONE
-   #    exit 0
-   #fi
+   #curl -s -u "${token}:" -X POST "${url}/api/views/refresh?key=${portfolioKey}"
+
+   version=$((${version}+1))
 
 done
